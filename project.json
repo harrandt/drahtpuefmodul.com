@@ -1,0 +1,65 @@
+{
+    "name": "drahtpruefung",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "apps/drahtpruefung/src",
+    "projectType": "application",
+    "targets": {
+        "image": {
+            "command": "./build-docker.sh drahtpruefung"
+        },
+        "build": {
+            "executor": "@nrwl/vite:build",
+            "outputs": ["{options.outputPath}"],
+            "defaultConfiguration": "production",
+            "options": {
+                "outputPath": "dist/apps/drahtpruefung"
+            },
+            "configurations": {
+                "development": {
+                    "mode": "development"
+                },
+                "production": {
+                    "mode": "production"
+                }
+            }
+        },
+        "serve-demo": {
+            "executor": "nx:run-commands",
+            "options": {
+                "commands": ["npm run serve:mock", "nx serve drahtpruefung"],
+                "parallel": true
+            }
+        },
+        "serve": {
+            "executor": "@nrwl/vite:dev-server",
+            "defaultConfiguration": "development",
+            "options": {
+                "buildTarget": "drahtpruefung:build"
+            },
+            "configurations": {
+                "development": {
+                    "buildTarget": "drahtpruefung:build:development"
+                },
+                "production": {
+                    "buildTarget": "drahtpruefung:build:production",
+                    "hmr": false
+                }
+            }
+        },
+        "test": {
+            "executor": "@nrwl/vite:test",
+            "outputs": ["{projectRoot}/coverage"],
+            "options": {
+                "config": "vite.config.ts"
+            }
+        },
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "outputs": ["{options.outputFile}"],
+            "options": {
+                "lintFilePatterns": ["apps/drahtpruefung/**/*.{ts,tsx,js,jsx}"]
+            }
+        }
+    },
+    "tags": []
+}
