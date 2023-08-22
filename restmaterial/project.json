@@ -1,0 +1,65 @@
+{
+    "name": "restmaterial",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "apps/restmaterial/src",
+    "projectType": "application",
+    "targets": {
+        "image": {
+            "command": "./build-docker.sh restmaterial"
+        },
+        "build": {
+            "executor": "@nrwl/vite:build",
+            "outputs": ["{options.outputPath}"],
+            "defaultConfiguration": "production",
+            "options": {
+                "outputPath": "dist/apps/restmaterial"
+            },
+            "configurations": {
+                "development": {
+                    "mode": "development"
+                },
+                "production": {
+                    "mode": "production"
+                }
+            }
+        },
+        "serve-demo": {
+            "executor": "nx:run-commands",
+            "options": {
+                "commands": ["npm run serve:mock", "nx serve restmaterial"],
+                "parallel": true
+            }
+        },
+        "serve": {
+            "executor": "@nrwl/vite:dev-server",
+            "defaultConfiguration": "development",
+            "options": {
+                "buildTarget": "restmaterial:build"
+            },
+            "configurations": {
+                "development": {
+                    "buildTarget": "restmaterial:build:development"
+                },
+                "production": {
+                    "buildTarget": "restmaterial:build:production",
+                    "hmr": false
+                }
+            }
+        },
+        "test": {
+            "executor": "@nrwl/vite:test",
+            "outputs": ["{projectRoot}/coverage"],
+            "options": {
+                "config": "vite.config.ts"
+            }
+        },
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "outputs": ["{options.outputFile}"],
+            "options": {
+                "lintFilePatterns": ["apps/restmaterial/**/*.{ts,tsx,js,jsx}"]
+            }
+        }
+    },
+    "tags": []
+}
