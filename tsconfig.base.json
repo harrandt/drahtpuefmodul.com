@@ -1,0 +1,28 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "rootDir": ".",
+        "sourceMap": true,
+        "declaration": false,
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "importHelpers": true,
+        "target": "es2015",
+        "module": "esnext",
+        "lib": ["es2017", "dom"],
+        "skipLibCheck": true,
+        "skipDefaultLibCheck": true,
+        "baseUrl": ".",
+        "paths": {
+            "@oh/features/languages": ["libs/features/languages/src/index.ts"],
+            "@oh/features/versions": ["libs/features/versions/src/index.ts"],
+            "@oh/locales": ["libs/locales/src/index.ts"],
+            "@oh/shared/api-client": ["libs/shared/api-client/src/index.ts"],
+            "@oh/shared/controlled-form-fields": ["libs/shared/controlled-form-fields/src/index.ts"],
+            "@oh/shared/models": ["libs/shared/models/src/index.ts"],
+            "@oh/shared/theme": ["libs/shared/theme/src/index.ts"]
+        }
+    },
+    "exclude": ["node_modules", "tmp"]
+}

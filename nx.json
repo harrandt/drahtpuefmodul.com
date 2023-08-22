@@ -1,0 +1,63 @@
+{
+    "$schema": "./node_modules/nx/schemas/nx-schema.json",
+    "npmScope": "oh",
+    "tasksRunnerOptions": {
+        "default": {
+            "runner": "nx/tasks-runners/default",
+            "options": {
+                "cacheableOperations": ["build", "lint", "test", "e2e"]
+            }
+        }
+    },
+    "targetDefaults": {
+        "image": {
+            "inputs": ["production", "^production"]
+        },
+        "build": {
+            "dependsOn": ["^build"],
+            "inputs": ["production", "^production"]
+        },
+        "e2e": {
+            "inputs": ["default", "^production"]
+        },
+        "test": {
+            "inputs": ["default", "^production"]
+        },
+        "lint": {
+            "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
+        }
+    },
+    "namedInputs": {
+        "default": ["{projectRoot}/**/*", "sharedGlobals"],
+        "production": [
+            "default",
+            "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+            "!{projectRoot}/tsconfig.spec.json",
+            "!{projectRoot}/.eslintrc.json"
+        ],
+        "sharedGlobals": ["{workspaceRoot}/babel.config.json"]
+    },
+    "cli": {
+        "defaultCollection": "@nrwl/react"
+    },
+    "generators": {
+        "@nrwl/react": {
+            "application": {
+                "style": "none",
+                "linter": "eslint",
+                "bundler": "vite",
+                "babel": true
+            },
+            "library": {
+                "style": "none",
+                "linter": "eslint",
+                "bundler": "vite",
+                "unitTestRunner": "vitest"
+            },
+            "component": {
+                "style": "none"
+            }
+        }
+    },
+    "defaultProject": "drahtpruefung"
+}
